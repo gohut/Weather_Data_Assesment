@@ -85,16 +85,39 @@ public class WeatherService {
     }
 
     private Double safeParseDouble(String value) {
-        if (value == null || value.isEmpty() ) {
+        if (value == null) {
             return null;
         }
-        return Double.parseDouble(value);
+        String trimmed = value.trim();
+        if (trimmed.isEmpty() || isMissingValue(trimmed)) {
+            return null;
+        }
+        try {
+            return Double.parseDouble(trimmed);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
     }
 
     private Integer safeParseInt(String value) {
-        if (value == null || value.isEmpty()) {
+        if (value == null) {
             return null;
         }
-        return Integer.parseInt(value);
+        String trimmed = value.trim();
+        if (trimmed.isEmpty() || isMissingValue(trimmed)) {
+            return null;
+        }
+        try {
+            return Integer.parseInt(trimmed);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+
+    private boolean isMissingValue(String value) {
+        return value.equalsIgnoreCase("N/A")
+                || value.equalsIgnoreCase("NA")
+                || value.equalsIgnoreCase("NULL")
+                || value.equals("-");
     }
 }

@@ -19,7 +19,6 @@ public class Weatherdata {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private LocalDateTime datetimeUtc;
     private String conds;
     private Double dewptm;
